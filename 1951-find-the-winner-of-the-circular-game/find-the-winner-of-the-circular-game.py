@@ -15,8 +15,13 @@ class Solution:
         #     circle.popleft()
         # return circle[0]
 
-        def findWinner(n,k):
-            if n == 1:
-                return 0
-            return (findWinner(n-1,k)+k)%n 
-        return findWinner(n,k) + 1
+        # def findWinner(n,k):
+        #     if n == 1:
+        #         return 0
+        #     return (findWinner(n-1,k)+k)%n 
+        # return findWinner(n,k) + 1
+
+        ans = 0
+        for i in range(2,n+1):
+            ans = (ans+k)%i
+        return ans+1
