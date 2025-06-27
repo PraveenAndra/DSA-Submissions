@@ -20,5 +20,30 @@ class Solution:
         #         return i
         #     if i**2 > x:
         #         return i-1
+
+        if x==0 or x==1:
+            return x
+        for i in range(2,x):
+            if i*i == x:
+                return i
+            elif i*i > x:
+                return i-1
+        return -1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         
