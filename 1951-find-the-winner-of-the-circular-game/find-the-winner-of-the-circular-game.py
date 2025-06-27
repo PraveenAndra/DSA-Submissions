@@ -21,7 +21,31 @@ class Solution:
         #     return (findWinner(n-1,k)+k)%n 
         # return findWinner(n,k) + 1
 
-        ans = 0
-        for i in range(2,n+1):
-            ans = (ans+k)%i
-        return ans+1
+        # ans = 0
+        # for i in range(2,n+1):
+        #     ans = (ans+k)%i
+        # return ans+1
+
+        arr = [i for i in range(1,n+1)]
+        i = 0
+        while len(arr) > 1:
+            ind = (i+k-1) % len(arr)
+            # print(ind,arr)
+            arr.pop(ind)
+            i = ind
+        return arr[0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
