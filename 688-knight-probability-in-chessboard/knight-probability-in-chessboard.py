@@ -1,23 +1,27 @@
 class Solution:
     def knightProbability(self, n: int, k: int, row: int, column: int) -> float:
-        if k==0:
-            return 1
-        next_dp = [[0]*n for i in range(n)]
+        # top-down
+
+        # def checkMove(x,y,curr):
+        #     if curr == 0:
+
+
+        #Bottom - up
+        rows = [(-2,-1),(-2,1),(-1,-2),(-1,2),(1,-2),(2,-1),(1,2),(2,1)]
+        prev_dp = [[0]*n for i in range(n)]
         curr_dp = [[0]*n for i in range(n)]
-        curr_dp[row][column] = 1
-        possible_moves = [(-1,-2),(-2,-1),(-2,1),(-1,2),(1,-2),(2,-1),(1,2),(2,1)]
-        for moves in range(k):
+        prev_dp[row][column] = 1
+        for moves in range(1,k+1):
             for i in range(n):
                 for j in range(n):
-                    for r,c in possible_moves:
-                        nx,ny = i+r,j+c
-                        if 0 <= nx < n and 0<=ny<n:
-                            next_dp[nx][ny] += curr_dp[i][j] / 8
-            curr_dp = next_dp
-            next_dp = [[0]*n for i in range(n)]
-                         
-        return sum(curr_dp[i][j] for i in range(n) for j in range(n))
-
+                    curr_dp[i][j] = 0
+                    for x,y in rows:
+                        nx,ny = i-x,j-y
+                        if 0<=nx<n and 0<=ny<n:
+                            curr_dp[i][j] += prev_dp[nx][ny] / 8
+            prev_dp,curr_dp = curr_dp,prev_dp
+        total_prob = sum(prev_dp[i][j] for i in range(n) for j in range(n))
+        return total_prob
 
 
 
