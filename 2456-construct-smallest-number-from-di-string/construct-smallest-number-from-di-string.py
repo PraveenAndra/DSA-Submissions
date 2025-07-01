@@ -1,27 +1,15 @@
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
-        res = float('inf')
-        n = len(pattern)
-        def backtrack(ind,curr,visited):
-            nonlocal res
-            if ind == n:
-                res = min(res,curr)
-                return 
-            prev = curr % 10
-            if pattern[ind] == "D":
-                for i in range(1,prev):
-                    if i not in visited:
-                        visited.add(i)
-                        backtrack(ind+1,curr*10+i,visited)
-                        visited.remove(i)
-            else:
-                for i in range(prev+1,10):
-                    if i not in visited:
-                        visited.add(i)
-                        backtrack(ind+1,curr*10+i,visited)
-                        visited.remove(i)
-                
+        result = []
 
-        for i in range(1,10):
-            backtrack(0,i,{i})
-        return str(res)
+        # Iterate through the pattern and build the result
+        previous_index = 0
+        for current_index in range(len(pattern) + 1):
+            result.append(str(1 + current_index))
+
+            # Reverse the substring starting from previous_index when necessary
+            if current_index == len(pattern) or pattern[current_index] == "I":
+                result[previous_index:] = reversed(result[previous_index:])
+                previous_index = current_index + 1
+
+        return "".join(result)
