@@ -16,7 +16,7 @@ class Solution:
                 for j in range(n):
                     curr_dp[i][j] = 0
                     for x,y in rows:
-                        nx,ny = i-x,j-y
+                        nx,ny = i+x,j+y
                         if 0<=nx<n and 0<=ny<n:
                             curr_dp[i][j] += prev_dp[nx][ny] / 8
             prev_dp,curr_dp = curr_dp,prev_dp
