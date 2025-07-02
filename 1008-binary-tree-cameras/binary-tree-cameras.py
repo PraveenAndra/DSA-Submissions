@@ -26,12 +26,16 @@ class Solution:
                 return float('inf')
             left = dfs(node.left)
             right = dfs(node.right)
-            curr = min(node.left.val if node.left else float('inf'),node.right.val if node.right else float('inf'))
+            curr = min(left,right)
+            # curr = min(node.left.val if node.left else float('inf'),node.right.val if node.right else float('inf'))
             if curr == 0:
                 res += 1
                 node.val = 1
+                return 1
             elif curr == 1:
                 node.val = 2
+                return 2
+            return 0
         dfs(root)
         return res+(1 if root.val == 0 else 0)
 
