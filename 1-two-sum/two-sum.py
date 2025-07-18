@@ -2,12 +2,7 @@ class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         lookup = {}
         for i in range(len(nums)):
-            req = target - nums[i]
-            if req in lookup:
-                return [lookup[req],i]
+            curr = target - nums[i]
+            if curr in lookup:
+                return [lookup[curr],i]
             lookup[nums[i]] = i
-        return 
-
-
-            
-            
