@@ -1,39 +1,39 @@
 class MedianFinder:
 
     def __init__(self):
-        self.small = []
-        self.large = []
+        self.min = []
+        self.max = []
         
 
     def addNum(self, num: int) -> None:
-        # if self.large and num > self.large[0]:
-        #     heapq.heappush(self.large,num)
-        # else:
-        #     heapq.heappush(self.small, -num)
-        # if len(self.small) > len(self.large)+1:
-        #     s = heapq.heappop(self.small)
-        #     heapq.heappush(self.large,-s)
-        # if len(self.large) > len(self.small)+1:
-        #     s = heapq.heappop(self.large)
-        #     heapq.heappush(self.small,-s)
-        if len(self.small) == len(self.large):
-            heapq.heappush(self.large,num)
-            heapq.heappush(self.small,-heapq.heappop(self.large))
+        if self.max and self.max[0] < num:
+            n = heapq.heappop(self.max)
+            heapq.heappush(self.max,num)
+            heapq.heappush(self.min,-n)
         else:
-            heapq.heappush(self.small,-num)
-            heapq.heappush(self.large,-heapq.heappop(self.small))
+            heapq.heappush(self.min,-num)
+        if len(self.max)+2 <= len(self.min):
+            n = heapq.heappop(self.min)
+            heapq.heappush(self.max,-n)
+        if len(self.min)+2 <= len(self.max):
+            n = heapq.heappop(self.max)
+            heapq.heappush(self.min,-n)
+
+
+
+
+        
 
     def findMedian(self) -> float:
-        # if len(self.small) > len(self.large):
-        #     return -self.small[0]
-        # elif len(self.large) > len(self.small):
-        #     return self.large[0]
-        # else:
-        #     return ((-self.small[0]+self.large[0])/2)
-        if len(self.small) == len(self.large):
-            return (self.large[0] - self.small[0])/2
-        else:
-            return -self.small[0]
+        # print(self.min,self.max)
+        if len(self.min) == len(self.max):
+            return (self.max[0]-self.min[0])/2
+        if len(self.min) > len(self.max):
+            return -self.min[0]
+        if len(Self.max) > len(self.min):
+            return self.max[0]
+        
+
 
 # Your MedianFinder object will be instantiated and called as such:
 # obj = MedianFinder()
