@@ -6,22 +6,26 @@
 #         self.right = None
 
 class Codec:
+
     def serialize(self, root):
         """Encodes a tree to a single string.
         
         :type root: TreeNode
         :rtype: str
         """
-        res = []
-        q = deque([root])
-        while q:
-            node = q.popleft()
-            res.append(str(node.val) if node else "None")
-            if node:
-                q.append(node.left)
-                q.append(node.right)
-        return ",".join(res)
-
+        res = ""
+        def dfs(node):
+            nonlocal res
+            if not node:
+                res+= "None,"
+                return 
+            res += str(node.val)
+            res += ","
+            dfs(node.left)
+            dfs(node.right)
+        dfs(root)
+        print(res)
+        return res
         
 
     def deserialize(self, data):
@@ -30,25 +34,24 @@ class Codec:
         :type data: str
         :rtype: TreeNode
         """
-        if len(data) == 0 or data == "None":
+        data = data.split(",")
+        if len(data) == 0 or data[0]==None:
             return None
-        nodes = data.split(",")
-        root = TreeNode(int(nodes[0]))
-        q = deque([root])
-        i = 1
-        while q:
-            curr = q.popleft()
-            if nodes[i]!="None":
-                curr.left = TreeNode(int(nodes[i]))
-                q.append(curr.left)
-            i += 1
-            if i < len(nodes) and nodes[i] != "None":
-                curr.right = TreeNode(int(nodes[i]))
-                q.append(curr.right)
-            i+= 1
-        return root
+        
+        def dfs(data):
+            if data[0] == "None":
+                data.pop(0)
+                return
+            root = TreeNode(int(data[0]))
+            data.pop(0)
+            root.left = dfs(data)
+            root.right = dfs(data)
+            return root
+        return dfs(data)
+            
+            
 
-
+        
 
         
 
