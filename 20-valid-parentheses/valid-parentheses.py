@@ -1,15 +1,19 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        new_dict= {"(":")","{":"}","[":"]"}
         stack = []
-        if len(s)%2!=0:
-            return False
+        match = {")":"(","}":"{","]":"["}
         for i in s:
-            if i in new_dict.keys():
-                stack.append(new_dict[i])
-            elif (len(stack)==0 or stack.pop()!=i):
-                return False
-        if len(stack)!=0: return False
-        return True
-            
-            
+            if i in match:
+                if stack and stack[-1] != match[i]:
+                    return False
+                if not stack:
+                    return False
+                stack.pop()
+            else:
+                stack.append(i)
+        return True if not stack else False
+
+                
+
+
+        
