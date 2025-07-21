@@ -1,26 +1,35 @@
 class Solution:
     def alienOrder(self, words: List[str]) -> str:
-        adj_list = defaultdict(set)
-        in_degree = Counter({c:0 for word in words for c in word})
+        edges = defaultdict(set)
+        indegree = defaultdict(int)
+        for word in words:
+            for c in word:
+                indegree[c] = 0
         for first_word, second_word in zip(words, words[1:]):
+            print(first_word,second_word)
             for c, d in zip(first_word, second_word):
                 if c != d:
-                    if d not in adj_list[c]:
-                        adj_list[c].add(d)
-                        in_degree[d] += 1
+                    if d not in edges[c]:
+                        edges[c].add(d)
+                        indegree[d] += 1
                     break
             else:
                 if len(second_word) < len(first_word):
                     return ""
-        output = []
-        queue = deque([c for c in in_degree if in_degree[c] == 0])
-        while queue:
-            c = queue.popleft()
-            output.append(c)
-            for d in adj_list[c]:
-                in_degree[d] -= 1
-                if in_degree[d] == 0:
-                    queue.append(d)
-        if len(output) < len(in_degree):
+        
+        q = deque()
+        for i in indegree:
+            if indegree[i] == 0:
+                q.append(i)
+        print(edges,indegree,q)
+        res = []
+        while q:
+            char = q.popleft()
+            res.append(char)
+            for i in edges[char]:
+                indegree[i] -= 1
+                if indegree[i] == 0:
+                    q.append(i)
+        if len(res) < len(indegree):
             return ""
-        return "".join(output)
+        return "".join(res)
