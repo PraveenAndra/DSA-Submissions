@@ -1,25 +1,24 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> bool:
-        low = 0
-        high = len(nums) - 1
-
-        while low <= high:
-            pivot = low + (high - low)//2
-            if nums[pivot] == target:
+        left = 0
+        right = len(nums)-1
+        while left <= right:
+            mid = left + (right - left)//2
+            if nums[mid] == target:
                 return True
-            if nums[pivot] == nums[low]:
-                low += 1
+            if nums[left] == nums[mid]:
+                left += 1
                 continue
-            pivotFirst = (nums[low] <= nums[pivot])
-            targetFirst = (nums[low] <= target)
-            if pivotFirst ^ targetFirst:
-                if pivotFirst:
-                    low = pivot+1
+            if nums[left] <= nums[mid]:
+                if nums[left] <= target <= nums[mid]:
+                    right = mid - 1
                 else:
-                    high = pivot - 1
+                    left = mid+1
             else:
-                if nums[pivot] < target:
-                    low = pivot + 1
+                if nums[mid]<=target<=nums[right]:
+                    left = mid+1
                 else:
-                    high = pivot - 1
+                    right = mid - 1
         return False
+
+        
