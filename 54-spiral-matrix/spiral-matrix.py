@@ -10,18 +10,21 @@ class Solution:
             for j in range(left,right+1):
                 res.append(matrix[up][j])
             # Right Col
-            up += 1
-            for i in range(up,down+1):
+            
+            for i in range(up+1,down+1):
                 res.append(matrix[i][right])
-            right -= 1
-            if up -1 != down:
-                for i in range(right,left-1,-1):
+            
+            if up != down:
+                for i in range(right-1,left-1,-1):
                     res.append(matrix[down][i])
-            down -= 1
-            if left!=right+1:
-                for i in range(down,up-1,-1):
+            
+            if left!=right:
+                for i in range(down-1,up,-1):
                     res.append(matrix[i][left])
+            up += 1       
             left += 1
+            down -= 1
+            right -= 1
         return res
 
             
