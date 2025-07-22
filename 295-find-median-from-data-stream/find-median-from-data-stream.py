@@ -7,15 +7,13 @@ class MedianFinder:
 
     def addNum(self, num: int) -> None:
         if self.max and self.max[0] < num:
-            n = heapq.heappop(self.max)
             heapq.heappush(self.max,num)
-            heapq.heappush(self.min,-n)
         else:
             heapq.heappush(self.min,-num)
         if len(self.max)+2 <= len(self.min):
             n = heapq.heappop(self.min)
             heapq.heappush(self.max,-n)
-        if len(self.min)+2 <= len(self.max):
+        elif len(self.min)+2 <= len(self.max):
             n = heapq.heappop(self.max)
             heapq.heappush(self.min,-n)
 
@@ -30,7 +28,7 @@ class MedianFinder:
             return (self.max[0]-self.min[0])/2
         if len(self.min) > len(self.max):
             return -self.min[0]
-        if len(Self.max) > len(self.min):
+        if len(self.max) > len(self.min):
             return self.max[0]
         
 
