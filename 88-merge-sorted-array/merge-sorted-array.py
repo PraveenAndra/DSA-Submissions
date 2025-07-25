@@ -3,16 +3,15 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        l,r = m-1,n-1
-        for i in range(m+n-1, -1, -1):
-            if r < 0 or l < 0:
+        p1 = m - 1
+        p2 = n - 1
+        for p in range(n + m - 1, -1, -1):
+            if p2 < 0:
                 break
-            if nums2[r] >= nums1[l]:
-                nums1[i] = nums2[r]
-                r -= 1
+            if p1 >= 0 and nums1[p1] > nums2[p2]:
+                nums1[p] = nums1[p1]
+                p1 -= 1
             else:
-                nums1[i] = nums1[l]
-                l -= 1
-        for i in range(r+1):
-            nums1[i] = nums2[i]
+                nums1[p] = nums2[p2]
+                p2 -= 1
         
