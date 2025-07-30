@@ -24,29 +24,29 @@ class Solution:
         prevTail = None
         while temp:
             ptr = temp
+            tail = temp
             count = 0
-            while count < k and ptr:
-                ptr = ptr.next
+            while count < k and temp:
+                temp = temp.next
                 count += 1
             if count == k:
                 prev = None
-                curr = temp
-                while curr and count > 0:
-                    next = curr.next
-                    curr.next = prev
-                    prev =curr
-                    curr =next
+                while ptr and count > 0:
+                    next = ptr.next
+                    ptr.next = prev
+                    prev =ptr
+                    ptr =next
                     count -= 1
                 if not newHead:
                     newHead = prev
                 if prevTail:
                     prevTail.next = prev
-                prevTail = temp
+                prevTail = tail
                 temp = ptr
             
             else:
                 if prevTail:
-                    prevTail.next = temp
-                break
+                    prevTail.next = ptr
+                
 
         return newHead if newHead else head
