@@ -1,19 +1,25 @@
 class Solution:
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        l1,l2 = 0,0
-        res = []
-        while l1 < len(nums1) and l2 < len(nums2):
-            if nums1[l1] < nums2[l2]:
-                res.append(nums1[l1])
-                l1 += 1
+        if len(nums2) < len(nums1):
+            return self.findMedianSortedArrays(nums2,nums1)
+        
+        l1,l2 = len(nums1), len(nums2)
+        left = 0
+        right = l1
+        while left <= right:
+            mid1 = (left+right)//2
+            mid2 = (l1+l2+1)//2 - mid1
+            max1 = float('-inf') if mid1 == 0 else nums1[mid1-1]
+            max2 = float('-inf') if mid2 == 0 else nums2[mid2-1]
+            min1 = float('inf') if mid1 == l1 else nums1[mid1]
+            min2 = float('inf') if mid2 == l2 else nums2[mid2]
+            if max1 <= min2 and max2 <= min1:
+                if (l1+l2)%2 == 0:
+                    return (max(max1,max2)+min(min1,min2))/2
+                else:
+                    return max(max1,max2)
+            elif max1 > min2:
+                right = mid1 - 1
             else:
-                res.append(nums2[l2])
-                l2 += 1
-        if l1 < len(nums1):
-            res.extend(nums1[l1:])
-        if l2 < len(nums2):
-            res.extend(nums2[l2:])
-        mid = (len(nums1)+len(nums2))//2
-        if (len(nums1)+len(nums2)) %2 == 0:
-            return (res[mid-1]+res[mid])/2
-        return res[mid]
+                left = mid1+1
+         
