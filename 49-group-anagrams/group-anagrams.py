@@ -1,9 +1,11 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        lookup = defaultdict(list)
-        for i in strs:
-            l = [0]*26
-            for j in i:
-                l[ord(j) - ord('a')] += 1
-            lookup[tuple(l)].append(i)
-        return list(lookup.values())
+        grouped = defaultdict(list)
+        for s in strs:
+            counter = [0]*26
+            for c in s:
+                counter[ord(c)-ord('a')] += 1
+            grouped[tuple(counter)].append(s)
+        return list(grouped.values())
+            
+        
