@@ -16,14 +16,24 @@ class Solution:
         #         dp[ind][amount] = dfs(ind,amount-coins[ind])+dfs(ind+1,amount)
         #     return dp[ind][amount]
         # return dfs(0,amount)
-        for i in range(len(coins)):
-            dp[i][0] = 1
-            for j in range(1,amount+1):
-                if coins[i] <= j:
-                    dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]
-                else:
-                    dp[i][j] = dp[i-1][j]
-        return dp[-1][amount]
+        # for i in range(len(coins)):
+        #     dp[i][0] = 1
+        #     for j in range(1,amount+1):
+        #         if coins[i] <= j:
+        #             dp[i][j] = dp[i-1][j] + dp[i][j-coins[i]]
+        #         else:
+        #             dp[i][j] = dp[i-1][j]
+        # return dp[-1][amount]
+
+        n = len(coins)
+        dp = [0] * (amount + 1)
+        dp[0] = 1
+
+        for i in range(n):
+            for j in range(coins[i], amount + 1):
+                dp[j] += dp[j - coins[i]]
+
+        return dp[amount]
          
             
         
