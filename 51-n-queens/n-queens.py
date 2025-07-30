@@ -10,20 +10,6 @@ class Solution:
             for row in state:
                 board.append("".join(row))
             return board
-        def check_col(row,col,path):
-            for i in range(row):
-                if path[i][col] == "Q":
-                    return False
-            return True
-        def check_diagnol(row,col,path):
-            for i in range(row-1,-1,-1):
-                for j in range(col-1,-1,-1):
-                    if path[i][j] == "Q":
-                        return False
-                for j in range(col+1,n):
-                    if path[i][j] == "Q":
-                        return False
-            return True
         def backtrack(row,col,path):
             if row == n:
                 res.append(create_board(path))
