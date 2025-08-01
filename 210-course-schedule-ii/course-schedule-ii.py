@@ -14,11 +14,11 @@ class Solution:
         order = []
         while stack:
             curr = stack.popleft()
-            if visited[curr]:
-                continue
+            # if visited[curr]:
+            #     continue
             res += 1
             order.append(curr)
-            visited[curr] = True
+            # visited[curr] = True
             for i in adj_list[curr]:
                 inorder[i] -= 1
                 if inorder[i] == 0:
